@@ -263,8 +263,6 @@ jobs:
           if [[ "$(aws eks list-clusters)" =~ \"${CLUSTER_NAME}\" ]] ; then
             aws eks update-kubeconfig --name "${CLUSTER_NAME}" --kubeconfig "/tmp/kubeconfig-${CLUSTER_NAME}.conf"
             export KUBECONFIG="/tmp/kubeconfig-${CLUSTER_NAME}.conf"
-
-            # !!! TODO - stop argo sync, delete all services which are type=Loadbalancers + uninstall external-dns
             kubectl get nodes
             kubectl delete deployments -A -l app.kubernetes.io/name=external-dns
             rm "/tmp/kubeconfig-${CLUSTER_NAME}.conf"

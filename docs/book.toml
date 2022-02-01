@@ -1,14 +1,14 @@
 [book]
-title = "Multitenant+Multicluster Amazon EKS installation using Terraform, GitHub Actions and ArgoCD"
+title = "Multitenant+Multicluster management using GitHub Action pipelines, Terraform and Rancher"
 language = "en"
-description = "Few notes about Multitenant+Multicluster Amazon EKS installation using Terraform, GitHub Actions and ArgoCD"
+description = "Few notes about Multitenant+Multicluster management using GitHub Action pipelines, Terraform and Rancher"
 authors = ["Petr Ruzicka"]
 
 [output.html]
 additional-css = ["theme/css/custom.css"]
-edit-url-template = "https://github.com/ruzickap/k8s-tf-eks-argocd/edit/main/docs/{path}"
-git-repository-url = "https://github.com/ruzickap/k8s-tf-eks-argocd"
-site-url = "/k8s-tf-eks-argocd/"
+edit-url-template = "https://github.com/ruzickap/k8s-tf-rancher/edit/main/docs/{path}"
+git-repository-url = "https://github.com/ruzickap/k8s-tf-rancher"
+site-url = "/k8s-tf-rancher/"
 
 [preprocessor.toc]
 command = "mdbook-toc"

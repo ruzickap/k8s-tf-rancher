@@ -1,11 +1,12 @@
 Ansible
-ArgoCD
 CloudFlare
 CloudFormation
 ClusterIssuers
 ConfigMap
 K8s
 Kubernetes
+Multicluster
+Multitenant
 OpenID
 Route53
 VPCs
