@@ -1,7 +1,7 @@
-# Amazon EKS installation using Terraform, GitHub Actions and ArgoCD
+# Multitenant+Multicluster management using GitHub Actions Terraform and Rancher
 
-* GitHub repository: [https://github.com/ruzickap/k8s-tf-eks-argocd](https://github.com/ruzickap/k8s-tf-eks-argocd)
-* Web Pages: [https://ruzickap.github.io/k8s-tf-eks-argocd](https://ruzickap.github.io/k8s-tf-eks-argocd)
+* GitHub repository: [https://github.com/ruzickap/k8s-tf-rancher](https://github.com/ruzickap/k8s-tf-rancher)
+* Web Pages: [https://ruzickap.github.io/k8s-tf-rancher](https://ruzickap.github.io/k8s-tf-rancher)
 
 ## Requirements
 
