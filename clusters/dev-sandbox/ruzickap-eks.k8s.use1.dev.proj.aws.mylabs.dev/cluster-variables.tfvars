@@ -12,6 +12,23 @@ aws_tags_cluster_level = {
   owner = "petr.ruzicka@gmail.com"
 }
 
+
+# Parameters in these maps can not be added / removed without changing the TF code
+rancher_cluster = {
+  enable_cluster_alerting   = false
+  cluster_monitoring_input  = false
+  enable_cluster_monitoring = false
+  enable_network_policy     = false
+}
+
+eks_config_v2 = {
+  private_access = true
+  public_access  = true
+  # TF destroy will not remove the Log Group from CloudWatch
+  # It is also set to "non-expire" by default
+  logging_types = ["audit"]
+}
+
 # In terrafrom it is not asy to do the deep merge of map of maps and it is not
 # possible to use them as block in rancher2 provisioner (in case of multile node_groups)
 # https://discuss.hashicorp.com/t/use-block-variables/5527/3
@@ -26,7 +43,7 @@ eks_config_v2_node_groups = [
     disk_size    = 29
     gpu          = false
     # amazon-eks-node-1.21-v20220123 | bottlerocket-aws-k8s-1.21-x86_64-v1.5.3-f37bd7cb
-    # image_id = "ami-0adc757be1e4e11a1"
+    # image_id = "ami-020452378df41ab4b"
     instance_type = "t2.medium"
     max_size      = 2
     min_size      = 2
@@ -35,18 +52,18 @@ eks_config_v2_node_groups = [
       additional_tag = "123456"
     }
   },
-  {
-    desired_size = 2
-    disk_size    = 19
-    gpu          = false
-    # amazon-eks-node-1.21-v20220123 | bottlerocket-aws-k8s-1.21-x86_64-v1.5.3-f37bd7cb
-    # image_id = "ami-0adc757be1e4e11a1"
-    instance_type = "t2.small"
-    max_size      = 2
-    min_size      = 2
-    name          = "ruzickap-eks-ng02"
-    resource_tags = {
-      additional_tag111 = "3333333"
-    }
-  },
+  # {
+  #   desired_size = 2
+  #   disk_size    = 19
+  #   gpu          = false
+  #   # amazon-eks-node-1.21-v20220123 | bottlerocket-aws-k8s-1.21-x86_64-v1.5.3-f37bd7cb
+  #   # image_id = "ami-020452378df41ab4b"
+  #   instance_type = "t3.medium"
+  #   max_size      = 2
+  #   min_size      = 2
+  #   name          = "ruzickap-eks-ng02"
+  #   resource_tags = {
+  #     additional_tag111 = "3333333"
+  #   }
+  # },
 ]

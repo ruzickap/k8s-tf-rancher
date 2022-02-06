@@ -335,6 +335,11 @@ jobs:
             aws ec2 delete-snapshot --snapshot-id "${SNAPSHOT}"
           done
 
+          # Rancher doesn't delete Amazon EKS properly - this is workaround :-(
+          # https://github.com/rancher/rancher/issues/36353 | https://github.com/rancher/terraform-provider-rancher2/issues/858
+          # aws ec2 delete-launch-template --launch-template-name="rancher-managed-lt-${CLUSTER_NAME}"
+          # aws logs delete-log-group --log-group-name="/aws/eks/${CLUSTER_NAME}/cluster"
+
       - name: 🔪 Delete S3 bucket used by Terraform
         if: ${{ needs.generate-cluster-aws-matrix.outputs.terraform_action == 'destroy' || github.event_name == 'schedule' }}
         run: |

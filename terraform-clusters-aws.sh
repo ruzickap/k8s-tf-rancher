@@ -28,16 +28,23 @@ get_variable_from_group_cluster_tfvars "${CLUSTER_PATH}" "aws_default_region"
 get_variable_from_group_cluster_tfvars "${CLUSTER_PATH}" "cluster_fqdn"
 get_variable_from_group_cluster_tfvars "${CLUSTER_PATH}" "cluster_name"
 get_variable_from_group_cluster_tfvars "${CLUSTER_PATH}" "terraform_code_dir"
+get_variable_from_group_cluster_tfvars "${CLUSTER_PATH}" "rancher_api_url"
 
 echo -e "\n# ------------- Secrets - must be ADDED !!! -------------\n"
 
-echo "### export AWS_ACCESS_KEY_ID='<secrets belongs to AWS_ACCESS_KEY_ID>"
-echo "### export AWS_SECRET_ACCESS_KEY='<secrets belongs to AWS_SECRET_ACCESS_KEY>'"
-echo "### export TF_VAR_rancher_token_key='<Rancher API token>'"
+cat << \EOF
+export RANCHER_ADMIN_PASSWORD=${MY_PASSWORD}
+### export AWS_ACCESS_KEY_ID='<secrets belongs to AWS_ACCESS_KEY_ID>
+### export AWS_SECRET_ACCESS_KEY='<secrets belongs to AWS_SECRET_ACCESS_KEY>'
+EOF
 
 echo -e "\n# ------------------------ Code -------------------------"
 
 cat << \EOF
+LOGIN_TOKEN=$( curl -k -s "${RANCHER_API_URL}/v3-public/localProviders/local?action=login" -H 'content-type: application/json' --data-binary "{\"username\":\"admin\",\"password\":\"${RANCHER_ADMIN_PASSWORD}\"}" | jq -r .token )
+TF_VAR_rancher_token_key=$( curl -k -s "${RANCHER_API_URL}/v3/token" -H 'Content-Type: application/json' -H "Authorization: Bearer ${LOGIN_TOKEN}" --data-binary "{\"type\":\"token\",\"description\":\"Rancher Token used by ${USER}@$(hostname)\", \"ttl\": 43200000}" | jq -r '.token' )
+export TF_VAR_rancher_token_key
+
 aws cloudformation deploy \
   --parameter-overrides "ClusterFQDN=${CLUSTER_FQDN}" \
   --stack-name "${CLUSTER_FQDN//./-}-s3-dynamodb-tfstate" --template-file "./cloudformation/s3-dynamodb-tfstate.yaml"
