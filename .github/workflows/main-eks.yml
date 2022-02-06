@@ -50,9 +50,9 @@ jobs:
         if: ${{ contains(github.event.inputs.action, 'create') }}
         run: |
           cat << \EOF
-          https://rancher.main-eks.k8s.mylabs.dev/
-          aws eks --region ${{ env.AWS_DEFAULT_REGION }} update-kubeconfig --name main-eks --kubeconfig /tmp/kubeconfig-main-eks.conf
+          # https://rancher.main-eks.k8s.mylabs.dev/
           export KUBECONFIG="/tmp/kubeconfig-main-eks.conf"
+          aws eks --region ${{ env.AWS_DEFAULT_REGION }} update-kubeconfig --name main-eks --kubeconfig "${KUBECONFIG}"
           kubectl get nodes -o wide
           EOF
 

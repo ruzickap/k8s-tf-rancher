@@ -91,3 +91,8 @@ variable "eks_config_v2_node_groups" {
   description = "Rancher EKS cluster eks_config_v2 map for node_groups"
   type        = any
 }
+
+variable "rancher_cluster" {
+  description = "Rancher cluster settings"
+  type        = map(string)
+}
